@@ -1,0 +1,18 @@
+{
+  "configurations": {
+    "Gateway: Launch": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "<name>: Launch",
+        "type": "python",
+        "request": "launch",
+        "cwd": "/home/nphucthinh/P",
+        "python": "~/.virtualenv/gw/bin/python",
+        "stopOnEntry": true,
+        "console": "externalTerminal",
+        "debugOptions": [],
+        "program": "app.py"
+      }
+    }
+  }
+}
