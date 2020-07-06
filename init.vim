@@ -23,6 +23,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
+Plugin 'puremourning/vimspector'
 Bundle 'chase/vim-ansible-yaml'
 
 " ...
@@ -48,9 +49,10 @@ set foldlevel=99
 " Enable folding with the spacebar
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
+autocmd BufWinEnter * NERDTreeMirror
 au BufNewFile,BufRead *.py
     \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-au BufNewFile,BufRead *.js,*.html,*.css
+au BufNewFile,BufRead *.js, *.html, *.css
     \ set tabstop=2
     \| set softtabstop=2
     \| set shiftwidth=2
@@ -64,7 +66,7 @@ if has('gui_running')
 else
   colorscheme zenburn
 endif
-call togglebg#map("<F12>")
+call togglebg#map("<S-1>")
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set nu
 set clipboard=unnamed
@@ -99,8 +101,37 @@ nnoremap <S-k> :m-2<CR>
 nnoremap <S-j> :m+<CR>
 inoremap <S-k> <Esc>:m-2<CR>
 inoremap <S-j> <Esc>:m+<CR>
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <Up> :resize +2<CR> 
 nnoremap <Down> :resize -2<CR>
 nnoremap <Left> :vertical resize +2<CR>
 nnoremap <Right> :vertical resize -2<CR>
+"" Nerd tree configuration
+let g:NERDTreeChDirMode=2
+let g:NERDTreeIgnore=['\.rbc$', '\~$', '\.pyc$', '\.db$', '\.sqlite$', '__pycache__']
+let g:NERDTreeSortOrder=['^__\.py$', '\/$', '*', '\.swp$', '\.bak$', '\~$']
+let g:NERDTreeShowBookmarks=1
+let g:nerdtree_tabs_focus_on_files=1
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+let g:NERDTreeWinSize = 50
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+nnoremap <silent> <F2> :NERDTreeFind<CR>
+
+"" Tab configure
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <silent> <S-t> :tabnew<CR>
+set relativenumber
+
+"" Vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+nnoremap <S-F5> :VimspectorReset<CR>
+sign define vimspectorBP text=🔴 texthl=Normal
+sign define vimspectorBPDisabled text=🔵 texthl=Normal
+sign define vimspectorPC text=🔶 texthl=SpellBad
 
