@@ -25,7 +25,8 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'puremourning/vimspector'
 Bundle 'chase/vim-ansible-yaml'
-
+Plugin 'itchyny/lightline.vim'
+Plugin 'mileszs/ack.vim'
 " ...
 
 " All of your Plugins must be added before the following line
@@ -52,7 +53,7 @@ let g:SimpylFold_docstring_preview=1
 autocmd BufWinEnter * NERDTreeMirror
 au BufNewFile,BufRead *.py
     \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-au BufNewFile,BufRead *.js, *.html, *.css
+au BufNewFile,BufRead *.js, *.html, *.css, *.cpp
     \ set tabstop=2
     \| set softtabstop=2
     \| set shiftwidth=2
@@ -70,6 +71,7 @@ call togglebg#map("<S-1>")
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set nu
 set clipboard=unnamed
+set mouse=a
 map <C-n> :NERDTreeToggle<CR>
 " Comment 
 function! Comment()
@@ -101,12 +103,6 @@ nnoremap <S-k> :m-2<CR>
 nnoremap <S-j> :m+<CR>
 inoremap <S-k> <Esc>:m-2<CR>
 inoremap <S-j> <Esc>:m+<CR>
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <Up> :resize +2<CR> 
 nnoremap <Down> :resize -2<CR>
 nnoremap <Left> :vertical resize +2<CR>
@@ -134,4 +130,22 @@ nnoremap <S-F5> :VimspectorReset<CR>
 sign define vimspectorBP text=🔴 texthl=Normal
 sign define vimspectorBPDisabled text=🔵 texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
+"" thoughbot
 
+
+"" C++
+let g:cpp_named_requirements_highlight = 1
+let g:clang_format#style_options = {
+            \ "AccessModifierOffset" : -4,
+            \ "AllowShortIfStatementsOnASingleLine" : "true",
+            \ "AlwaysBreakTemplateDeclarations" : "true",
+            \ "Standard" : "C++11"}
+
+" map to <Leader>cf in C++ code
+autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+" if you install vim-operator-user
+autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
+" Toggle auto formatting:
+nmap <Leader>C :ClangFormatAutoToggle<CR>
+set cindent
