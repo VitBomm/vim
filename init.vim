@@ -132,3 +132,6 @@ sign define vimspectorBPDisabled text=🔵 texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
 "" thoughbot
 set cindent
+set background=dark
+autocmd filetype cpp nnoremap <F7> :w <bar> !g++ -ulimit -Wall -Wno-unused-result -std=c++11   -O2   % -o %:r && ./%:r <CR>
+map <F8> :<C-U>!./%:r<CR>
