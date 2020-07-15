@@ -54,9 +54,9 @@ autocmd BufWinEnter * NERDTreeMirror
 au BufNewFile,BufRead *.py
     \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 au BufNewFile,BufRead *.js, *.html, *.css, *.cpp
-    \ set tabstop=2
-    \| set softtabstop=2
-    \| set shiftwidth=2
+    \ set tabstop=2 set softtabstop=2 set shiftwidth=2
+
+au FileType c,cpp setlocal softtabstop=2 shiftwidth=2 tabstop=4 expandtab
 set encoding=utf-8
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
@@ -131,21 +131,4 @@ sign define vimspectorBP text=🔴 texthl=Normal
 sign define vimspectorBPDisabled text=🔵 texthl=Normal
 sign define vimspectorPC text=🔶 texthl=SpellBad
 "" thoughbot
-
-
-"" C++
-let g:cpp_named_requirements_highlight = 1
-let g:clang_format#style_options = {
-            \ "AccessModifierOffset" : -4,
-            \ "AllowShortIfStatementsOnASingleLine" : "true",
-            \ "AlwaysBreakTemplateDeclarations" : "true",
-            \ "Standard" : "C++11"}
-
-" map to <Leader>cf in C++ code
-autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-" if you install vim-operator-user
-autocmd FileType c,cpp,objc map <buffer><Leader>x <Plug>(operator-clang-format)
-" Toggle auto formatting:
-nmap <Leader>C :ClangFormatAutoToggle<CR>
 set cindent
