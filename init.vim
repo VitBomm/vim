@@ -27,6 +27,8 @@ Plugin 'puremourning/vimspector'
 Bundle 'chase/vim-ansible-yaml'
 Plugin 'itchyny/lightline.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'frazrepo/vim-rainbow'
+Plugin 'christoomey/vim-tmux-navigator'
 " ...
 
 " All of your Plugins must be added before the following line
@@ -35,7 +37,7 @@ filetype plugin indent on    " required
 " Vim Script
 set splitbelow
 set splitright
-
+let g:rainbow_active = 1
 " Move between the splits without using mouse
 
 nnoremap <C-J> <C-W><C-J>
@@ -51,12 +53,14 @@ set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
 autocmd BufWinEnter * NERDTreeMirror
+au FileType c,cpp,html,css,js setlocal softtabstop=2 shiftwidth=2 tabstop=4 expandtab
 au BufNewFile,BufRead *.py
     \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-au BufNewFile,BufRead *.js, *.html, *.css, *.cpp
-    \ set tabstop=2 set softtabstop=2 set shiftwidth=2
+"" au BufNewFile,BufRead *.js,.html,*.css,*.cpp
+""    \ set tabstop=2 set softtabstop=2 set shiftwidth=2
 
-au FileType c,cpp setlocal softtabstop=2 shiftwidth=2 tabstop=4 expandtab
+autocmd FileType javascript,html set tabstop=2|set shiftwidth=2|set expandtab
+
 set encoding=utf-8
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 let python_highlight_all=1
@@ -68,29 +72,7 @@ set clipboard=unnamed
 set mouse=a
 map <C-n> :NERDTreeToggle<CR>
 " Comment 
-function! Comment()
-  let ext = tolower(expand('%:e'))
-  if ext == 'php' || ext == 'rb' || ext == 'sh' || ext == 'py' || ext == 'yml'
-    silent s/^/\#/
-  elseif ext == 'js'
-    silent s:^:\/\/:g
-  elseif ext == 'vim'
-    silent s:^:\":g
-  endif
-endfunction
 
-function! Uncomment()
-  let ext = tolower(expand('%:e'))
-  if ext == 'php' || ext == 'rb' || ext == 'sh' || ext == 'py' || ext == 'yml'
-    silent s/^\#//
-  elseif ext == 'js'
-    silent s:^\/\/::g
-  elseif ext == 'vim'
-    silent s:^\"::g
-  endif
-endfunction
-map <C-a> :call Comment()<CR>
-map <C-b> :call Uncomment()<CR>
 let NERDTreeShowHidden=1
 set clipboard=unnamedplus
 nnoremap <S-k> :m-2<CR>
@@ -110,7 +92,6 @@ let g:nerdtree_tabs_focus_on_files=1
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 let g:NERDTreeWinSize = 50
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-nnoremap <silent> <F2> :NERDTreeFind<CR>
 
 "" Tab configure
 nnoremap <Tab> gt
@@ -139,3 +120,4 @@ if has("autocmd")
     \ endif
   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 endif
+
