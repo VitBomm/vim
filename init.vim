@@ -10,8 +10,8 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-Plugin 'tmhedberg/SimpylFold'
 " add all your plugins here (note older versions of Vundle
+Plugin 'tmhedberg/SimpylFold'
 " used Bundle instead of Plugin)
 Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
@@ -29,8 +29,10 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'mileszs/ack.vim'
 Plugin 'frazrepo/vim-rainbow'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'sbdchd/neoformat'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
 " ...
-
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -45,6 +47,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
+noremap <C-F3> :Autoformat<CR>
 " Enable folding
 set foldmethod=indent
 set foldlevel=99
@@ -53,13 +56,11 @@ set foldlevel=99
 nnoremap <space> za
 let g:SimpylFold_docstring_preview=1
 autocmd BufWinEnter * NERDTreeMirror
-au FileType c,cpp,html,css,js setlocal softtabstop=2 shiftwidth=2 tabstop=4 expandtab
+au FileType c,cpp,html,css setlocal softtabstop=2 shiftwidth=2 tabstop=4 expandtab
 au BufNewFile,BufRead *.py
     \ set tabstop=4 softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
-"" au BufNewFile,BufRead *.js,.html,*.css,*.cpp
-""    \ set tabstop=2 set softtabstop=2 set shiftwidth=2
 
-autocmd FileType javascript,html set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType html set tabstop=2|set shiftwidth=2|set expandtab
 
 set encoding=utf-8
 map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
@@ -68,9 +69,15 @@ syntax on
 call togglebg#map("<S-1>")
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set nu
+set nowrap
+set noswapfile
+set nobackup
+set undodir=~/.vim/undoir
+set undofile
+set incsearch
 set clipboard=unnamed
 set mouse=a
-map <C-n> :NERDTreeToggle<CR>
+map <C-g> :NERDTreeToggle<CR>
 " Comment 
 
 let NERDTreeShowHidden=1
@@ -120,4 +127,15 @@ if has("autocmd")
     \ endif
   au VimLeave * silent execute '!echo -ne "\e[ q"' | redraw!
 endif
+
+let g:neoformat_enabled_javascript = ['prettier', 'eslint_d']
+
+" fzf
+noremap ` :Files<CR>
+noremap ; :Buffers<CR>
+
+" bind \ (backward slash) to grep shortcut
+nnoremap F :Ag <C-R><C-W><CR>
+nnoremap <C-k> /<C-R><C-W><CR>
+nnoremap \ :Ag<SPACE>
 
