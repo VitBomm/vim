@@ -40,6 +40,8 @@ filetype plugin indent on    " required
 set splitbelow
 set splitright
 let g:rainbow_active = 1
+set colorcolumn=88
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 " Move between the splits without using mouse
 
 nnoremap <C-J> <C-W><C-J>
@@ -75,7 +77,7 @@ set nobackup
 set undodir=~/.vim/undoir
 set undofile
 set incsearch
-set clipboard=unnamed
+set clipboard=unnamedplus
 set mouse=a
 map <C-g> :NERDTreeToggle<CR>
 " Comment 
@@ -132,10 +134,8 @@ let g:neoformat_enabled_javascript = ['prettier', 'eslint_d']
 
 " fzf
 noremap ` :Files<CR>
-noremap ; :Buffers<CR>
 
 " bind \ (backward slash) to grep shortcut
 nnoremap F :Ag <C-R><C-W><CR>
 nnoremap <C-k> /<C-R><C-W><CR>
 nnoremap \ :Ag<SPACE>
-
