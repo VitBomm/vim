@@ -32,6 +32,9 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'sbdchd/neoformat'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
+" js
+Plugin 'dense-analysis/ale'
+
 " ...
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -139,3 +142,17 @@ noremap ` :Files<CR>
 nnoremap F :Ag <C-R><C-W><CR>
 nnoremap <C-k> /<C-R><C-W><CR>
 nnoremap \ :Ag<SPACE>
+" Setting Vim for js
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+augroup javascript_folding
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️'
+au FileType js setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
+au BufNewFile,BufRead *.js
+    \ set tabstop=2 softtabstop=2 shiftwidth=2 textwidth=79 expandtab autoindent fileformat=unix
+
