@@ -16,7 +16,7 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 Bundle 'Valloric/YouCompleteMe'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
+Plugin 'andviro/flake8-vim'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
@@ -32,6 +32,7 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'sbdchd/neoformat'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
+Plugin 'morhetz/gruvbox'
 " js
 Plugin 'dense-analysis/ale'
 
@@ -155,4 +156,12 @@ let g:ale_sign_warning = '⚠️'
 au FileType js setlocal softtabstop=2 shiftwidth=2 tabstop=2 expandtab
 au BufNewFile,BufRead *.js
     \ set tabstop=2 softtabstop=2 shiftwidth=2 textwidth=79 expandtab autoindent fileformat=unix
+" Flake8 rule
+let g:PyFlakeOnWrite = 1
+
+"Comment code
+autocmd FileType apache setlocal commentstring=#\ %s
+" gruvbox background
+set background=dark
+colorscheme gruvbox
 
