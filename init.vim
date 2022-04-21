@@ -32,7 +32,8 @@ Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'sbdchd/neoformat'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
-Plugin 'morhetz/gruvbox'
+" Plugin 'morhetz/gruvbox'
+Plugin 'dracula/vim', { 'name': 'dracula' }
 " js
 Plugin 'dense-analysis/ale'
 
@@ -88,10 +89,10 @@ map <C-g> :NERDTreeToggle<CR>
 
 let NERDTreeShowHidden=1
 set clipboard=unnamedplus
-nnoremap <S-k> :m-2<CR>
-nnoremap <S-j> :m+<CR>
-inoremap <S-k> <Esc>:m-2<CR>
-inoremap <S-j> <Esc>:m+<CR>
+nnoremap <M-k> :m-2<CR>
+nnoremap <M-j> :m+<CR>
+inoremap <M-k> <Esc>:m-2<CR>
+inoremap <M-j> <Esc>:m+<CR>
 nnoremap <Up> :resize +2<CR> 
 nnoremap <Down> :resize -2<CR>
 nnoremap <Left> :vertical resize +2<CR>
@@ -162,6 +163,9 @@ let g:PyFlakeOnWrite = 1
 "Comment code
 autocmd FileType apache setlocal commentstring=#\ %s
 " gruvbox background
-set background=dark
-colorscheme gruvbox
-
+" set background=dark
+" colorscheme gruvbox
+colorscheme dracula
+" Flake8 Rule
+let g:PyFlakeMaxLineLength = 100
+let g:PyFlakeDisabledMessages = 'C901'
